@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: http-get-app
+  name: http-get-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: http-get-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: http-get-app
+    spec:
+      containers:
+      - image: navjot2singh/getservice:v1
+        name: getservice
+        ports:
+        - containerPort: 8080
+
