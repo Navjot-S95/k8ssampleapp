@@ -5,8 +5,8 @@ Simple Get service written in python and deployed on kubernetes.
 ## Repo Details
 ### service.py
 Python service that responds to an HTTP GET request and returns: 
-- a. Timestamp 
-- b. hostname 
+- Timestamp 
+- hostname 
 
 ### Dockerfile
 - Dockerfile using which a lean image of size 45 mb can be created
