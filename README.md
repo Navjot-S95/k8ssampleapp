@@ -73,9 +73,11 @@ kubectl create -f ingress.yaml
 ```
 ### Test the endpoint
 In commandline
- minikube ip                      ## provides the node IP
+ 
 ```sh
-curl --header 'Host: k8ssampleapp.com' <MINIKUBE_IP>
+minikube ip                      ## provides the node IP
+
+curl --header 'Host: k8ssampleapp.com' <MINIKUBE_IP>                 
 ```
 Browser- create host entry
 ```sh
@@ -83,7 +85,8 @@ Browser- create host entry
 ```
 
 
-monitoring and metrics- Enable node port for kubernetes dashboad
+## Monitoring and Metrics
+Enable node port for kubernetes dashboad
 ```sh
  kubectl patch svc kubernetes-dashboard --type='json' -p '[{"op":"replace","path":"/spec/type","value":"NodePort"}]' -n kubernetes-dashboard
  ```
