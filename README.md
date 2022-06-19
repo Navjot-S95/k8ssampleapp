@@ -11,6 +11,7 @@ Python service that responds to an HTTP GET request and returns:
 ### Dockerfile
 - Dockerfile using which a lean image of size 45 mb can be created
 - It is using alpine base image
+
 For building docker image
 ```sh
 cd ~/demo/k8ssampleapp
