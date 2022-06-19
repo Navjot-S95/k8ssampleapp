@@ -2,6 +2,49 @@
 
 Simple Get service written in python and deployed on kubernetes.
 
+## Repo Details
+### service.py
+Python service that responds to an HTTP GET request and returns: 
+a. Timestamp 
+b. hostname 
+
+### Dockerfile
+- Dockerfile using which a lean image of size 45 mb can be created
+- It is using alpine base image
+For building docker image
+```sh
+cd ~/demo/k8ssampleapp
+docker build -t navjot2singh/getservice:v1 .
+```
+#### Already docker image has been pushed to public docker hub repo and manifests files are configured with that image
+To pull image
+```sh
+docker pull navjot2singh/getservice:v1
+```
+
+### Manifests folder
+It contains all the required k8s manifest files
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+
+#### Deployment of k8s manifest
+```sh
+cd ~/demo/k8ssampleapp/manifests
+kubectl create -f deployment.yaml
+kubectl create -f service.yaml
+kubectl create -f ingress.yaml
+```
+
+
+### img folder
+It contains endpoint and metric dashboard images for reference
+
+
+## Testing Environment
+- Minikube on windows or mac - https://minikube.sigs.k8s.io/docs/start/
+- Minikube on Linux- ubuntu - Refer below
+
 
 ## Setting Up k8s environment using minikube
 ### Prerequisites
@@ -54,16 +97,6 @@ cd ~/demo
 git clone https://github.com/Navjot-S95/k8ssampleapp.git
 ```
 
-for building docker image
-```sh
-cd ~/demo/k8ssampleapp
-docker build -t navjot2singh/getservice:v1 .
-```
-Already docker image has been pushed to public docker hub repo and manifests files are configured with that image
-to pull image
-```sh
-docker pull navjot2singh/getservice:v1
-```
 Deploy manifests
 ```sh
 cd ~/demo/k8ssampleapp/manifests
