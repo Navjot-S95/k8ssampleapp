@@ -12,15 +12,15 @@ Simple Get service written in python and deployed on kubernetes.
 ```sh
 adduser mini
 usermod -aG sudo mini
-usermod -aG docker mini
 su - mini
 ```
 Install docker and minikube
 ```sh
 mkdir ~/demo
 cd ~/demo
+sudo apt update
 sudo  apt  install docker.io
-usermod -aG docker mini
+sudo usermod -aG docker mini
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 sudo apt install conntrack
@@ -34,6 +34,10 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 start minikube
 ```sh
+exit
+su mini
+cd ~/demo
+docker ps               //to check if user mini has access to docker sock
 minikube start --driver=none --extra-config=kubelet.housekeeping-interval=10s
 ```
 
@@ -46,16 +50,16 @@ minikube addons enable dashboard
 
 Clone code
 ```sh
+cd ~/demo
 git clone https://github.com/Navjot-S95/k8ssampleapp.git
-cd ~/demo/k8ssampleapp
 ```
 
 for building docker image
 ```sh
-cd ~/demo/k8ssampleapp/docker
+cd ~/demo/k8ssampleapp
 docker build -t navjot2singh/getservice:v1 .
 ```
-Already docker image has been pushed to public docker hub repo
+Already docker image has been pushed to public docker hub repo and manifests files are configured with that image
 to pull image
 ```sh
 docker pull navjot2singh/getservice:v1
@@ -67,6 +71,17 @@ kubectl create -f deployment.yaml
 kubectl create -f service.yaml
 kubectl create -f ingress.yaml
 ```
+### Test the endpoint
+In commandline
+ minikube ip                      ## provides the node IP
+```sh
+curl --header 'Host: k8ssampleapp.com' <MINIKUBE_IP>
+```
+Browser- create host entry
+```sh
+<MINIKUBE_IP>     k8ssampleapp.com
+```
+
 
 monitoring and metrics- Enable node port for kubernetes dashboad
 ```sh
@@ -79,6 +94,6 @@ monitoring and metrics- Enable node port for kubernetes dashboad
  kubectl -n kubernetes-dashboard get svc kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.port==80)].nodePort}'
  
  In browser open
- minikubeip:NodePort
+ http://<MINIKUBE_IP>:NodePort
  ```
 
