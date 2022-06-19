@@ -8,7 +8,7 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
     
         ts= time.time()
-        message = "Timestamp: " +str(ts) + '<br>' + 'Hostname: '+socket.gethostname() 
+        message = "Timestamp: " +str(ts) +'\n'+ '<br>' +'\n'+ 'Hostname: '+socket.gethostname() +'\n' 
         self.wfile.write(bytes(message, "utf8"))
        
 
